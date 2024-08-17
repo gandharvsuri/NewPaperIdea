@@ -1,19 +1,17 @@
 from crewai import Task
 from textwrap import dedent
 
-class MarketingAnalysisTasks:
-	def product_analysis(self, agent, product_website, product_details):
+class NewPaperIdeaTasks:
+	def paper_analysis(self, agent, paper_content, keywords):
 		return Task(description=dedent(f"""\
-			Analyze the given product website: {product_website}.
-			Extra details provided by the customer: {product_details}.
+			Analyze the given research paper content: {paper_content}.
+			Extra keywords provided: {keywords}.
 
-			Focus on identifying unique features, benefits,
-			and the overall narrative presented.
+			Focus on identifying novelty, benefits, meathodology,
+			data, results and short comings.
 
 			Your final report should clearly articulate the
-			product's key selling points, its market appeal,
-			and suggestions for enhancement or positioning.
-			Emphasize the aspects that make the product stand out.
+			ideas's key points, data used, methods used and next steps.
 
 			Keep in mind, attention to detail is crucial for
 			a comprehensive analysis. It's currenlty 2024.
@@ -21,101 +19,48 @@ class MarketingAnalysisTasks:
 			agent=agent
 		)
 
-	def competitor_analysis(self, agent, product_website, product_details):
+	def literature_review(self, agent, paper_content, keywords):
 		return Task(description=dedent(f"""\
-			Explore competitor of: {product_website}.
-			Extra details provided by the customer: {product_details}.
+			Find similar research papers to: {paper_content}.
+			Extra keywords provided: {keywords}.
 
-			Identify the top 3 competitors and analyze their
-			strategies, market positioning, and customer perception.
+			Identify the top 3 similar research papers and analyze their
+			ideas, data, results, and short comings.
 
-			Your final report MUST include BOTH all context about {product_website}
-			and a detailed comparison to whatever competitor they have competitors.
+			Your final report MUST include BOTH all context about original paper
+			and a detailed comparison to the other similar papers.
 			"""),
 			agent=agent
 		)
 
-	def campaign_development(self, agent, product_website, product_details):
-		return Task(description=dedent(f"""\
-			You're creating a targeted marketing campaign for: {product_website}.
-			Extra details provided by the customer: {product_details}.
-
-			To start this campaing we will need a strategy and creative content ideas.
-			It should be meticulously designed to captivate and engage
-			the product's target audience.
-
-			Based on your ideas your co-workers will create the content for the campaign.
-
-			Your final answer MUST be ideas that will resonate with the audience and
-			also include ALL context you have about the product and the customer.
-			"""),
-			agent=agent
-		)
-
-	def instagram_ad_copy(self, agent):
+	def new_idea_iderator(self, agent):
 		return Task(description=dedent("""\
-			Craft an engaging Instagram post copy.
-			The copy should be punchy, captivating, concise,
-			and aligned with the product marketing strategy.
+			Craft an novel research problem and solution for a 
+			research domain.
+			The solution should be concise, include all context, data, 
+			and meathods to achieve the solution.
 
-			Focus on creating a message that resonates with
-			the target audience and highlights the product's
-			unique selling points.
+			Focus on giving reasoning based on existing papers that 
+			this idea fills in a gap. It must give several existing 
+			paper citations and a paragraph reasoning why this is novel and valuable.
 
-			Your ad copy must be attention-grabbing and should
-			encourage viewers to take action, whether it's
-			visiting the website, making a purchase, or learning
-			more about the product.
-
-			Your final answer MUST be 3 options for an ad copy for instagram that
-			not only informs but also excites and persuades the audience.
 			"""),
 			agent=agent
 		)
 
-	def take_photograph_task(self, agent, copy, product_website, product_details):
+	
+
+	def review_research_idea(self, agent):
 		return Task(description=dedent(f"""\
-			You are working on a new campaign for a super important customer,
-			and you MUST take the most amazing photo ever for an instagram post
-			regarding the product, you have the following copy:
-			{copy}
-
-			This is the product you are working with: {product_website}.
-			Extra details provided by the customer: {product_details}.
-
-			Imagine what the photo you wanna take describe it in a paragraph.
-			Here are some examples for you follow:
-			- high tech airplaine in a beautiful blue sky in a beautiful sunset super cripsy beautiful 4k, professional wide shot
-			- the last supper, with Jesus and his disciples, breaking bread, close shot, soft lighting, 4k, crisp
-			- an bearded old man in the snows, using very warm clothing, with mountains full of snow behind him, soft lighting, 4k, crisp, close up to the camera
-
-			Think creatively and focus on how the image can capture the audience's
-			attention. Don't show the actual product on the photo.
-
-			Your final answer must be 3 options of photographs, each with 1 paragraph
-			describing the photograph exactly like the examples provided above.
-			"""),
-			agent=agent
-		)
-
-	def review_photo(self, agent, product_website, product_details):
-		return Task(description=dedent(f"""\
-			Review the photos you got from the senior photographer.
+			Review the research problem ideas you got from the Research Idea Ideator.
 			Make sure it's the best possible and aligned with the product's goals,
 			review, approve, ask clarifying question or delegate follow up work if
 			necessary to make decisions. When delegating work send the full draft
 			as part of the information.
 
-			This is the product you are working with: {product_website}.
-			Extra details provided by the customer: {product_details}.
-
-			Here are some examples on how the final photographs should look like:
-			- high tech airplaine in a beautiful blue sky in a beautiful sunset super cripsy beautiful 4k, professional wide shot
-			- the last supper, with Jesus and his disciples, breaking bread, close shot, soft lighting, 4k, crisp
-			- an bearded old man in the snows, using very warm clothing, with mountains full of snow behind him, soft lighting, 4k, crisp, close up to the camera
-
-			Your final answer must be 3 reviewed options of photographs,
-			each with 1 paragraph description following the examples provided above.
+			Reasoning based on existing papers that this idea fills in a gap. 
+			Note that it must give several existing paper citations and a paragraph 
+			reasoning why this is novel and valuable.
 			"""),
 			agent=agent
 		)

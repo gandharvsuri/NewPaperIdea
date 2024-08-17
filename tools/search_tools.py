@@ -3,10 +3,10 @@ import os
 
 import requests
 from langchain.tools import tool
+import arxiv
 
 
 class SearchTools():
-
   @tool("Search internet")
   def search_internet(query):
     """Useful to search the internet about a given topic and return relevant
@@ -41,4 +41,20 @@ class SearchTools():
 
     content = '\n'.join(stirng)
     return f"\nSearch result: {content}\n"
+
+  @tool("Search ARXIV")
+  def search_arxiv(query, n_results=5):
+    """Useful to search arxiv for research papers of a given topic."""
+    arxiv_client = arxiv.Client()
+    search = arxiv.Search(
+      query = query,
+      max_results = n_results,
+      sort_by = arxiv.SortCriterion.SubmittedDate
+    )
+
+    summary = ""
+    for result in arxiv_client.results(search):
+      summary = summary + result.summary + "\n"
+      
+    return f"Top {n_results} research papers summary \n {summary}"
 

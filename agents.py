@@ -6,11 +6,11 @@ from langchain_openai import ChatOpenAI
 from tools.search_tools import SearchTools
 
 
-class MarketingAnalysisAgents:
+class NewPaperIdeaAgents:
     def __init__(self):
         self.llm = ChatGroq(
             api_key=os.getenv("GROQ_API_KEY"),
-            model="llama3-70b-8192"
+            model="llama3-8b-8192"
         )
         # self.llm = ChatOpenAI(
         #     model="crewai-llama3-8b",
@@ -18,102 +18,74 @@ class MarketingAnalysisAgents:
         #     api_key="NA"
         # )
 
-    def product_competitor_agent(self):
+    def research_coordinator_agent(self):
         return Agent(
-            role="Lead Market Analyst",
-            goal=dedent("""\
-				Conduct amazing analysis of the products and
-				competitors, providing in-depth insights to guide
-				marketing strategies."""),
-            backstory=dedent("""\
-				As the Lead Market Analyst at a premier
-				digital marketing firm, you specialize in dissecting
-				online business landscapes."""),
+            role="Lead Research Coordinator",
+            backstory=dedent(
+                f"""Expert in conducting research, planning and logistics. 
+                I have decades of expereince in conducting acadamic research, coming up with novel
+                meathodologies and strategies to help clients students and peers achieve their goals."""),
+            goal=dedent(f"""
+                        Facilitate academic research with detailed plans,
+                        include novelty, innovative and value tips.
+                        """),
             tools=[
-                SearchTools.search_internet
+                SearchTools.search_internet,
+                SearchTools.search_arxiv
             ],
             allow_delegation=False,
             llm=self.llm,
             verbose=True
         )
 
-    def strategy_planner_agent(self):
+    def literature_reviewer_agent(self):
         return Agent(
-            role="Chief Marketing Strategist",
-            goal=dedent("""\
-				Synthesize amazing insights from product analysis
-				to formulate incredible marketing strategies."""),
-            backstory=dedent("""\
-				You are the Chief Marketing Strategist at
-				a leading digital marketing agency, known for crafting
-				bespoke strategies that drive success."""),
+            role="Literature Reviewer",
+            backstory=dedent(
+                f"""Expert in finding the relevant and related literature."""),
+            goal=dedent(f"""
+                        Select the relevant and related literature based on the provided research topic and research question.
+                        """),
             tools=[
                 SearchTools.search_internet,
-                SearchTools.search_instagram
+                SearchTools.search_arxiv
             ],
-            llm=self.llm,
-            verbose=True
-        )
-
-    def creative_content_creator_agent(self):
-        return Agent(
-            role="Creative Content Creator",
-            goal=dedent("""\
-				Develop compelling and innovative content
-				for social media campaigns, with a focus on creating
-				high-impact Instagram ad copies."""),
-            backstory=dedent("""\
-				As a Creative Content Creator at a top-tier
-				digital marketing agency, you excel in crafting narratives
-				that resonate with audiences on social media.
-				Your expertise lies in turning marketing strategies
-				into engaging stories and visual content that capture
-				attention and inspire action."""),
-            tools=[
-                SearchTools.search_internet,
-                SearchTools.search_instagram
-            ],
-            llm=self.llm,
-            verbose=True
-        )
-
-    def senior_photographer_agent(self):
-        return Agent(
-            role="Senior Photographer",
-            goal=dedent("""\
-					Take the most amazing photographs for instagram ads that
-					capture emotions and convey a compelling message."""),
-            backstory=dedent("""\
-					As a Senior Photographer at a leading digital marketing
-					agency, you are an expert at taking amazing photographs that
-					inspire and engage, you're now working on a new campaign for a super
-					important customer and you need to take the most amazing photograph."""),
-            tools=[
-                SearchTools.search_internet,
-                SearchTools.search_instagram
-            ],
-            llm=self.llm,
             allow_delegation=False,
+            llm=self.llm,
             verbose=True
         )
 
-    def chief_creative_diretor_agent(self):
+    def research_domain_agent(self):
         return Agent(
-            role="Chief Creative Director",
-            goal=dedent("""\
-					Oversee the work done by your team to make sure it's the best
-					possible and aligned with the product's goals, review, approve,
-					ask clarifying question or delegate follow up work if necessary to make
-					decisions"""),
-            backstory=dedent("""\
-					You're the Chief Content Officer of leading digital
-					marketing specialized in product branding. You're working on a new
-					customer, trying to make sure your team is crafting the best possible
-					content for the customer."""),
+            role="Research Domain Expert",
+            backstory=dedent(
+                f"""Expert for a research domain. I have years of experience in conducting research and planning for research."""),
+            goal=dedent(f"""
+                        Provide relevant ideas and reviews for a research topic and domain.
+                        """),
             tools=[
                 SearchTools.search_internet,
-                SearchTools.search_instagram
+                SearchTools.search_arxiv
             ],
+            allow_delegation=False,
+            llm=self.llm,
+            verbose=True
+        )
+
+    def new_idea_agent(self):
+        return Agent(
+            role="Research Idea Ideator",
+            backstory=dedent(
+                f"""Expert in coming up with new ideas and research problems and solutions."""),
+            goal=dedent(f"""
+                        Provide relevant ideas and research problems to work on and provide solutions for them.
+                        Provides data and methods to achieve and reseasoning based on existing papers that this idea fills in a gap.
+                        """),
+            tools=[
+                SearchTools.search_internet,
+                SearchTools.search_arxiv
+            ],
+            allow_delegation=False,
             llm=self.llm,
             verbose=True
         )
