@@ -10,7 +10,7 @@ tasks = NewPaperIdeaTasks()
 agents = NewPaperIdeaAgents()
 
 research_paper_path = "3624732.pdf"
-keywords = "Natural Language Processing, NLP, Attention, Self-Attention"
+keywords = "Generative AI, LLM, online communities, safety, brotherhood"
 
 paper_content = read_pdf(research_paper_path)
 
@@ -27,7 +27,7 @@ literature_review = tasks.literature_review(
     literature_reviewer_agent, paper_content, keywords)
 new_idea_iderator = tasks.new_idea_iderator(
     new_idea_agent)
-review_research_idea = tasks.review_research_idea(research_domain_agent)
+# review_research_idea = tasks.review_research_idea(research_domain_agent)
 
 # Create Crew responsible for Copy
 copy_crew = Crew(
@@ -41,7 +41,7 @@ copy_crew = Crew(
         paper_analysis,
         literature_review,
         new_idea_iderator,
-        review_research_idea
+        # review_research_idea
     ],
     verbose=True,
     # Remove this when running locally. This helps prevent rate limiting with groq.

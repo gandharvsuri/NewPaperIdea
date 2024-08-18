@@ -4,14 +4,16 @@ from textwrap import dedent
 class NewPaperIdeaTasks:
 	def paper_analysis(self, agent, paper_content, keywords):
 		return Task(description=dedent(f"""\
-			Analyze the given research paper content: {paper_content}.
-			Extra keywords provided: {keywords}.
+			Analyze the given research paper content and keywords: 
+			content: {paper_content}.
+			keywords: {keywords}.
 
-			Focus on identifying novelty, benefits, meathodology,
+			Focus on identifying novelty, meathodology,
 			data, results and short comings.
 
-			Your final report should clearly articulate the
-			ideas's key points, data used, methods used and next steps.
+			Your final report should clearly articulate how 
+			to improve the research solution and provide 
+			meathodology for the same.
 
 			Keep in mind, attention to detail is crucial for
 			a comprehensive analysis. It's currenlty 2024.
@@ -35,7 +37,7 @@ class NewPaperIdeaTasks:
 
 	def new_idea_iderator(self, agent):
 		return Task(description=dedent("""\
-			Craft an novel research problem and solution for a 
+			Craft an novel idea and research problem and solution for a 
 			research domain.
 			The solution should be concise, include all context, data, 
 			and meathods to achieve the solution.
@@ -48,7 +50,6 @@ class NewPaperIdeaTasks:
 			agent=agent
 		)
 
-	
 
 	def review_research_idea(self, agent):
 		return Task(description=dedent(f"""\
