@@ -13,7 +13,7 @@
   Agent: new_idea_agent
 
 
-Short Comings and Identified 
+Short Comings and Identified Issues
 
 - In case the pdf is large the LLM might not be able to accomodate the token length. Possible solution to have a map function to reduce and summarise or distill the content length.
 - Currently only looks at arxiv.org for similar papers and within that has only access to the summary. Will need to add more sorces of papers as mentioned.
